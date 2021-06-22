@@ -1,0 +1,168 @@
+<div class="box">
+    <div class="head">
+        <img src="../../assets/cv.png" width="34%" class="img">
+    </div>
+    <div class="body">
+        <div class="box-image">
+            <button width="10%" class="but"><img src="../../assets/1.jpg" ng-click="myFunction()" width="99%"></button>
+            <button width="10%" class="but"><img src="../../assets/2.jpg" ng-click="myFunction()" width="99%"></button>
+            <button width="10%" class="but"><img src="../../assets/3.jpg" ng-click="myFunction()" width="99%"></button>
+        </div>
+        <form>
+            <div class="form-group" [formGroup]="productForm">
+                <label for="name">Imie:</label>
+                <input type="text" width="20vw" class="form-control" id="name" name="name" formControlName="name"
+                    placeholder="Imie">
+            </div>
+            <div class="form-group" [formGroup]="productForm">
+                <label for="surname">Nazwisko:</label>
+                <input type="text" width="20vw" class="form-control" id="surname" name="surname"
+                    formControlName="surname" placeholder="Nazwisko">
+            </div>
+
+            <div class="form-group" [formGroup]="productForm">
+                <label for="textarea">Opis siebie:</label>
+                <textarea class="form-control" width="15vw" id="about" name="about" rows="8" formControlName="about"
+                    maxlength="500"></textarea>
+            </div>
+
+            <div class="form-group" [formGroup]="productForm">
+                <label for="surname">Adres:</label>
+                <input type="text" width="20vw" class="form-control" id="addres" formControlName="address"
+                    name="address" placeholder="Adres">
+            </div>
+
+            <div class="form-group" [formGroup]="productForm">
+                <label for="surname">Telefon:</label>
+                <input type="text" width="20vw" class="form-control" id="telephone" formControlName="telephone"
+                    name="telephone" placeholder="Telefon">
+            </div>
+
+            <div class="form-group" [formGroup]="productForm">
+                <label for="surname">Email:</label>
+                <input type="text" width="20vw" class="form-control" id="email" name="email" formControlName="email"
+                    placeholder="Email">
+            </div>
+
+            <div class="form-group">
+                <button type="button" (click)="addQuantity()" class="btn btn-primary">Add More</button>
+            </div>
+            <div [formGroup]="productForm">
+                <table formArrayName="educations">
+                    <tr *ngFor="let quantity of education().controls; let i=index" [formGroupName]="i">
+                        <td>
+                            Od:
+                            <input type="text" width="5%" formControlName="from" class="form-control">
+                        </td>
+                        <td>
+                            Do:
+                            <input type="text" width="5%" formControlName="to" class="form-control">
+                        </td>
+                        <td>
+                            Nazwa kierunku:
+                            <input type="text" width="15%" formControlName="name" class="form-control">
+                        </td>
+                        <td>
+                            Szkoła
+                            <input type="text" width="15%" formControlName="schoolName" class="form-control">
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+
+            <div>
+                <div class="form-group">
+                    <button type="button" (click)="addSkills()" class="btn btn-primary">Add Skills</button>
+                </div>
+
+                <div [formGroup]="productForm">
+                    <table formArrayName="skills">
+                        <tr *ngFor="let quantity of skills().controls; let i=index" [formGroupName]="i">
+                            <td>
+                                Umiejetnosc:
+                                <input type="text" width="5%" formControlName="name" class="form-control">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button type="button" (click)="addCarrer()" class="btn btn-primary">Add Carrer</button>
+            </div>
+
+            <div [formGroup]="productForm">
+                <table formArrayName="careers">
+                    <tr *ngFor="let quantity of carrera().controls; let i=index" [formGroupName]="i">
+                        <td>
+                            Od:
+                            <input type="text" width="5%" formControlName="from" class="form-control">
+                        </td>
+                        <td>
+                            Do:
+                            <input type="text" width="5%" formControlName="to" class="form-control">
+                        </td>
+                        <td>
+                            Firma:
+                            <input type="text" width="10%" formControlName="company" class="form-control">
+                        </td>
+                        <td>
+                            Stanowisko
+                            <input type="text" width="10%" formControlName="jobTitle" class="form-control">
+                        </td>
+                        <td>
+                            Opis
+                            <input type="text" width="10%" formControlName="about" class="form-control">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="form-group">
+                <button type="button" (click)="addLanguage()" class="btn btn-primary">Add Language</button>
+            </div>
+
+            <div [formGroup]="productForm">
+                <table formArrayName="languages">
+                    <tr *ngFor="let quantity of language().controls; let i=index" [formGroupName]="i">
+                        <td>
+                            Język:
+                            <input type="text" width="5%" formControlName="name" class="form-control">
+                        </td>
+                        <td>
+                            Level:
+                            <input type="text" width="5%" formControlName="level" class="form-control">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="form-group">
+                <button type="button" (click)="addInterest()" class="btn btn-primary">Add Interest</button>
+            </div>
+
+            <div [formGroup]="productForm">
+                <table formArrayName="interests">
+                    <tr *ngFor="let quantity of interest().controls; let i=index" [formGroupName]="i">
+                        <td>
+                            Zainteresowanie:
+                            <input type="text" width="5%" formControlName="name" formControlName="name"
+                                class="form-control">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+
+
+            <div class="form-group">
+                <label for="exampleFormControlFile1">Example file input</label>
+                <input type="file" class="form-control-file" id="exampleFormControlFile1">
+            </div>
+        </form>
+
+    </div>
+
+    <button type="button" (click)="show()">Send</button>
+</div>
