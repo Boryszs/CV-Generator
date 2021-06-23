@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms'
+import { CvserviceService } from '../services/cvservice.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-cv-generator',
@@ -10,8 +12,16 @@ export class CvGeneratorComponent implements OnInit {
 
 
   productForm: FormGroup;
+  selectedFile: File;
+  retrievedImage: any;
+  base64Data: any;
+  retrieveResonse: any;
+  message: string;
+  imageName: any;
+  
+  
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,private service:CvserviceService) {
     this.productForm = this.fb.group({
       name: '',
       surname: '',
@@ -24,9 +34,12 @@ export class CvGeneratorComponent implements OnInit {
       email: '',
       languages: this.fb.array([]),
       interests: this.fb.array([]),
+      colorStyle: 'GRAY_WHITE',
     });
   }
 
+
+  
   education(): FormArray {
     return this.productForm.get("educations") as FormArray
   }
@@ -40,9 +53,17 @@ export class CvGeneratorComponent implements OnInit {
   }
 
   show() {
-    console.log(this.productForm.value);
+    this.service.generatePDF(this.productForm.value,this.selectedFile).subscribe((response) => {
+      const blob = new Blob([response], {type: 'application/pdf; charset=utf-8'});
+      saveAs(blob, 'Resume ' + this.productForm.value.name+"_"+this.productForm.value.surname+"_CV.pdf");
+    })
   }
 
+  public onFileChanged(event:any) {
+        this.selectedFile = event.target.files[0];
+  }
+    
+    
   language(): FormArray {
     return this.productForm.get("languages") as FormArray
   }
@@ -62,7 +83,7 @@ export class CvGeneratorComponent implements OnInit {
 
   newSkills(): FormGroup {
     return this.fb.group({
-      name: new FormControl()
+      name: ''
     })
   }
 
