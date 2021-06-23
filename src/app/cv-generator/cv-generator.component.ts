@@ -38,7 +38,9 @@ export class CvGeneratorComponent implements OnInit {
     });
   }
 
-
+  setStyle(style:string){
+      this.productForm.value.colorStyle=style;
+  }
   
   education(): FormArray {
     return this.productForm.get("educations") as FormArray
@@ -129,6 +131,28 @@ export class CvGeneratorComponent implements OnInit {
   addInterest() {
     this.interest().push(this.newInterest());
   }
+
+  removeEducation(i:number) {
+    this.education().removeAt(i);
+  }
+
+  removeSkills(i:number){
+    this.skills().removeAt(i);
+  }
+
+  removeCarrier(i:number){
+    this.carrera().removeAt(i);
+  }
+
+  removeLanguage(i:number){
+    this.language().removeAt(i);
+  }
+
+  removeInterest(i:number){
+    this.interest().removeAt(i);
+  }
+
+
 
   ngOnInit(): void {
   }

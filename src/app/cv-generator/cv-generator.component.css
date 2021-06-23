@@ -10,6 +10,7 @@
     background-color:#5c5c5c; 
     border: 2px solid #717171;
     margin: auto;
+   
 }
 
 .box-image .but{
@@ -26,7 +27,15 @@
     margin: 0 auto;
 }
 
-.but:focus{
+.but{
+    outline: none;
+    padding: 1%;
+    display: block;
+    margin: 0 auto;
+}
+
+.but:focus{ 
+    outline:0;
     padding: 1%;
     display: block;
     margin: 0 auto;
@@ -66,7 +75,7 @@ tr{
 }
 
 input{
-    width: 15vw;
+    width: 12vw;
 }
 
 textarea{
@@ -83,3 +92,13 @@ label{
     font-weight: bolder;
 }
 
+button{
+    justify-content: center;
+    margin: 5%;
+    align-items: center;
+}
+
+.inner{
+    align-items: center;
+    display: inline-block;
+}

@@ -2,11 +2,11 @@
     <div class="head">
         <img src="../../assets/cv.png" width="34%" class="img">
     </div>
-    <div class="body">
+    <div class="body" [formGroup]="productForm">
         <div class="box-image">
-            <button width="10%" class="but"><img src="../../assets/1.jpg" ng-click="myFunction()" width="99%"></button>
-            <button width="10%" class="but"><img src="../../assets/2.jpg" ng-click="myFunction()" width="99%"></button>
-            <button width="10%" class="but"><img src="../../assets/3.jpg" ng-click="myFunction()" width="99%"></button>
+            <button width="10%" class="but"><img src="../../assets/1.jpg" (click)="setStyle('BLUE_WHITE')"  ng-click="myFunction()" width="99%"></button>
+            <button width="10%" class="but"><img src="../../assets/2.jpg" (click)="setStyle('DARK_WHITE')"  ng-click="myFunction()" width="99%"></button>
+            <button width="10%" class="but"><img src="../../assets/3.jpg" (click)="setStyle('GRAY_WHITE')"  ng-click="myFunction()" width="99%"></button>
         </div>
         <form>
             <div class="form-group" [formGroup]="productForm">
@@ -45,7 +45,7 @@
             </div>
 
             <div class="form-group">
-                <button type="button" (click)="addQuantity()" class="btn btn-primary">Add More</button>
+                    <button type="button" (click)="addQuantity()" class="btn btn-primary">Dodaj szkołe</button>
             </div>
             <div [formGroup]="productForm">
                 <table formArrayName="educations">
@@ -66,6 +66,9 @@
                             Szkoła
                             <input type="text" width="15%" formControlName="schoolName" class="form-control">
                         </td>
+                        <td>
+                            <button type="button" (click)="removeEducation(i)" class="btn btn-danger">Usuń</button>
+                        </td>
 
                     </tr>
                 </table>
@@ -73,7 +76,7 @@
 
             <div>
                 <div class="form-group">
-                    <button type="button" (click)="addSkills()" class="btn btn-primary">Add Skills</button>
+                        <button type="button" (click)="addSkills()" class="btn btn-primary">Dodaj umiejętność</button>
                 </div>
 
                 <div [formGroup]="productForm">
@@ -83,13 +86,16 @@
                                 Umiejetnosc:
                                 <input type="text" width="5%" formControlName="name" class="form-control">
                             </td>
+                            <td>
+                                <button type="button" (click)="removeSkills(i)" class="btn btn-danger">Usuń</button>
+                            </td>
                         </tr>
                     </table>
                 </div>
             </div>
 
             <div class="form-group">
-                <button type="button" (click)="addCarrer()" class="btn btn-primary">Add Carrer</button>
+                    <button type="button" (click)="addCarrer()" class="btn btn-primary">Dodaj kariere</button>
             </div>
 
             <div [formGroup]="productForm">
@@ -115,12 +121,15 @@
                             Opis
                             <input type="text" width="10%" formControlName="about" class="form-control">
                         </td>
+                        <td>
+                            <button type="button" (click)="removeCarrier(i)" class="btn btn-danger">Usuń</button>
+                        </td>
                     </tr>
                 </table>
             </div>
 
             <div class="form-group">
-                <button type="button" (click)="addLanguage()" class="btn btn-primary">Add Language</button>
+                    <button type="button" (click)="addLanguage()" class="btn btn-primary">Dodaj język</button>
             </div>
 
             <div [formGroup]="productForm">
@@ -134,12 +143,15 @@
                             Level:
                             <input type="text" width="5%" formControlName="level" class="form-control">
                         </td>
+                        <td>
+                            <button type="button" (click)="removeLanguage(i)" class="btn btn-danger">Usuń</button>
+                        </td>
                     </tr>
                 </table>
             </div>
 
             <div class="form-group">
-                <button type="button" (click)="addInterest()" class="btn btn-primary">Add Interest</button>
+                    <button type="button" (click)="addInterest()" class="btn btn-primary">Dodaj zainteresowanie</button>
             </div>
 
             <div [formGroup]="productForm">
@@ -150,6 +162,9 @@
                             <input type="text" width="5%" formControlName="name" formControlName="name"
                                 class="form-control">
                         </td>
+                        <td>
+                            <button type="button" (click)="removeInterest(i)" class="btn btn-danger">Usuń</button>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -157,12 +172,12 @@
 
 
             <div class="form-group">
-                <label for="exampleFormControlFile1">Example file input</label>
+                <label for="exampleFormControlFile1">Wybierz zdjęcie: </label>
                 <input type="file" class="form-control-file" (change)="onFileChanged($event)" id="exampleFormControlFile1">
             </div>
         </form>
 
     </div>
 
-    <button type="button" (click)="show()">Send</button>
+    <button type="button" class="btn btn-primary" (click)="show()">Wyslij</button>
 </div>
