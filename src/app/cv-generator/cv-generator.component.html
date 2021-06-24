@@ -11,12 +11,12 @@
         <form>
             <div class="form-group" [formGroup]="productForm">
                 <label for="name">Imie:</label>
-                <input type="text" width="20vw" class="form-control" id="name" name="name" formControlName="name"
+                <input type="text" width="20vw" class="form-control" id="name" name="name" formControlName="name" maxlength="20"
                     placeholder="Imie">
             </div>
             <div class="form-group" [formGroup]="productForm">
                 <label for="surname">Nazwisko:</label>
-                <input type="text" width="20vw" class="form-control" id="surname" name="surname"
+                <input type="text" width="20vw" class="form-control" id="surname" name="surname" maxlength="20"
                     formControlName="surname" placeholder="Nazwisko">
             </div>
 
@@ -28,19 +28,19 @@
 
             <div class="form-group" [formGroup]="productForm">
                 <label for="surname">Adres:</label>
-                <input type="text" width="20vw" class="form-control" id="addres" formControlName="address"
+                <input type="text" width="20vw" class="form-control" id="addres" formControlName="address" maxlength="30"
                     name="address" placeholder="Adres">
             </div>
 
             <div class="form-group" [formGroup]="productForm">
                 <label for="surname">Telefon:</label>
-                <input type="text" width="20vw" class="form-control" id="telephone" formControlName="telephone"
+                <input type="text" width="20vw" class="form-control" id="telephone" formControlName="telephone" maxlength="12"
                     name="telephone" placeholder="Telefon">
             </div>
 
             <div class="form-group" [formGroup]="productForm">
                 <label for="surname">Email:</label>
-                <input type="text" width="20vw" class="form-control" id="email" name="email" formControlName="email"
+                <input type="email" width="20vw" class="form-control" id="email" name="email" formControlName="email" maxlength="20"
                     placeholder="Email">
             </div>
 
@@ -52,19 +52,19 @@
                     <tr *ngFor="let quantity of education().controls; let i=index" [formGroupName]="i">
                         <td>
                             Od:
-                            <input type="text" width="5%" formControlName="from" class="form-control">
+                            <input type="number" width="5%" formControlName="from" class="form-control" maxlength="4">
                         </td>
                         <td>
                             Do:
-                            <input type="text" width="5%" formControlName="to" class="form-control">
+                            <input type="number" width="5%" formControlName="to" class="form-control" maxlength="4">
                         </td>
                         <td>
                             Nazwa kierunku:
-                            <input type="text" width="15%" formControlName="name" class="form-control">
+                            <input type="text" width="15%" formControlName="name" class="form-control" maxlength="64">
                         </td>
                         <td>
                             Szkoła
-                            <input type="text" width="15%" formControlName="schoolName" class="form-control">
+                            <input type="text" width="15%" formControlName="schoolName" class="form-control" maxlength="64">
                         </td>
                         <td>
                             <button type="button" (click)="removeEducation(i)" class="btn btn-danger">Usuń</button>
@@ -84,7 +84,7 @@
                         <tr *ngFor="let quantity of skills().controls; let i=index" [formGroupName]="i">
                             <td>
                                 Umiejetnosc:
-                                <input type="text" width="5%" formControlName="name" class="form-control">
+                                <input type="text" width="5%" formControlName="name" class="form-control" maxlength="65">
                             </td>
                             <td>
                                 <button type="button" (click)="removeSkills(i)" class="btn btn-danger">Usuń</button>
@@ -103,23 +103,23 @@
                     <tr *ngFor="let quantity of carrera().controls; let i=index" [formGroupName]="i">
                         <td>
                             Od:
-                            <input type="text" width="5%" formControlName="from" class="form-control">
+                            <input type="number" width="5%" formControlName="from" class="form-control" maxlength="4">
                         </td>
                         <td>
                             Do:
-                            <input type="text" width="5%" formControlName="to" class="form-control">
+                            <input type="number" width="5%" formControlName="to" class="form-control" maxlength="4">
                         </td>
                         <td>
                             Firma:
-                            <input type="text" width="10%" formControlName="company" class="form-control">
+                            <input type="text" width="10%" formControlName="company" class="form-control" maxlength="64">
                         </td>
                         <td>
                             Stanowisko
-                            <input type="text" width="10%" formControlName="jobTitle" class="form-control">
+                            <input type="text" width="10%" formControlName="jobTitle" class="form-control" maxlength="64">
                         </td>
                         <td>
                             Opis
-                            <input type="text" width="10%" formControlName="about" class="form-control">
+                            <input type="text" width="10%" formControlName="about" class="form-control" maxlength="64">
                         </td>
                         <td>
                             <button type="button" (click)="removeCarrier(i)" class="btn btn-danger">Usuń</button>
@@ -137,11 +137,18 @@
                     <tr *ngFor="let quantity of language().controls; let i=index" [formGroupName]="i">
                         <td>
                             Język:
-                            <input type="text" width="5%" formControlName="name" class="form-control">
+                            <input type="text" width="5%" formControlName="name" class="form-control" maxlength="18">
                         </td>
                         <td>
-                            Level:
-                            <input type="text" width="5%" formControlName="level" class="form-control">
+                            Poziom:
+                            <select  width="5%" formControlName="level" class="form-select">
+                                <option>A1</option>
+                                <option>A2</option>
+                                <option>B1</option>
+                                <option>B2</option>
+                                <option>C1</option>
+                                <option>C2</option>
+                            </select>
                         </td>
                         <td>
                             <button type="button" (click)="removeLanguage(i)" class="btn btn-danger">Usuń</button>
@@ -159,7 +166,7 @@
                     <tr *ngFor="let quantity of interest().controls; let i=index" [formGroupName]="i">
                         <td>
                             Zainteresowanie:
-                            <input type="text" width="5%" formControlName="name" formControlName="name"
+                            <input type="text" width="5%" formControlName="name" formControlName="name" maxlength="18"
                                 class="form-control">
                         </td>
                         <td>
