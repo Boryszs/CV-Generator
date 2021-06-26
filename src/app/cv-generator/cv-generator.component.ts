@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms'
+import { FormGroup, FormControl, FormArray, FormBuilder, Validators  } from '@angular/forms'
 import { CvserviceService } from '../services/cvservice.service';
 import { saveAs } from 'file-saver';
-import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-cv-generator',
@@ -14,21 +13,22 @@ export class CvGeneratorComponent implements OnInit {
 
   productForm: FormGroup;
   selectedFile: File | null=null;
+  submitted = false;
 
 
   constructor(private fb: FormBuilder, private service: CvserviceService) {
     this.productForm = this.fb.group({
-      name: '',
-      surname: '',
-      about: '',
-      educations: this.fb.array([]),
-      skills: this.fb.array([]),
-      careers: this.fb.array([]),
-      address: '',
-      telephone: '',
-      email: '',
-      languages: this.fb.array([]),
-      interests: this.fb.array([]),
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
+      about: ['', Validators.required],
+      educations: [this.fb.array([]), Validators.required],
+      skills: [this.fb.array([]), Validators.required],
+      careers: [this.fb.array([]), Validators.required],
+      address: ['', Validators.required],
+      telephone: ['', [Validators.required, Validators.pattern("[0-9 ]{11}")]],
+      email: ['', Validators.email],
+      languages: [this.fb.array([]), Validators.required],
+      interests: [this.fb.array([]), Validators.required],
       colorStyle: 'GRAY_WHITE',
     });
   }
@@ -49,25 +49,34 @@ export class CvGeneratorComponent implements OnInit {
     return this.productForm.get("careers") as FormArray
   }
 
-  show() {
+  get valid(){
+    return this.productForm.controls;
+  }
 
+  send() {
+    this.submitted = true;
     this.service.generatePDF(this.productForm.value, this.selectedFile).subscribe((response) => {
       const blob = new Blob([response], { type: 'application/pdf; charset=utf-8' });
       saveAs(blob, this.productForm.value.name + "_" + this.productForm.value.surname + "_CV.pdf");
     })
 
+
+    if(this.productForm.invalid){
+      return;
+    }
+
     this.productForm = this.fb.group({
-      name: '',
-      surname: '',
-      about: '',
-      educations: this.fb.array([]),
-      skills: this.fb.array([]),
-      careers: this.fb.array([]),
-      address: '',
-      telephone: '',
-      email: '',
-      languages: this.fb.array([]),
-      interests: this.fb.array([]),
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
+      about: ['', Validators.required],
+      educations: [this.fb.array([]), Validators.required],
+      skills: [this.fb.array([]), Validators.required],
+      careers: [this.fb.array([]), Validators.required],
+      address: ['', Validators.required],
+      telephone: ['', [Validators.required, Validators.pattern("[0-9 ]{11}")]],
+      email: ['', Validators.email],
+      languages: [this.fb.array([]), Validators.required],
+      interests: [this.fb.array([]), Validators.required],
       colorStyle: 'GRAY_WHITE',
     });
   }
