@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators  } from '@angular/forms'
+import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms'
 import { CvserviceService } from '../services/cvservice.service';
 import { saveAs } from 'file-saver';
 
@@ -12,7 +12,7 @@ export class CvGeneratorComponent implements OnInit {
 
 
   productForm: FormGroup;
-  selectedFile: File | null=null;
+  selectedFile: File | null = null;
   submitted = false;
 
 
@@ -21,14 +21,14 @@ export class CvGeneratorComponent implements OnInit {
       name: ['', Validators.required],
       surname: ['', Validators.required],
       about: ['', Validators.required],
-      educations: [this.fb.array([]), Validators.required],
-      skills: [this.fb.array([]), Validators.required],
-      careers: [this.fb.array([]), Validators.required],
+      educations: this.fb.array([]),
+      skills: this.fb.array([]),
+      careers: this.fb.array([]),
       address: ['', Validators.required],
       telephone: ['', [Validators.required, Validators.pattern("[0-9 ]{11}")]],
-      email: ['', Validators.email],
-      languages: [this.fb.array([]), Validators.required],
-      interests: [this.fb.array([]), Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      languages: this.fb.array([]),
+      interests: this.fb.array([]),
       colorStyle: 'GRAY_WHITE',
     });
   }
@@ -49,7 +49,7 @@ export class CvGeneratorComponent implements OnInit {
     return this.productForm.get("careers") as FormArray
   }
 
-  get valid(){
+  get valid() {
     return this.productForm.controls;
   }
 
@@ -61,7 +61,7 @@ export class CvGeneratorComponent implements OnInit {
     })
 
 
-    if(this.productForm.invalid){
+    if (this.productForm.invalid) {
       return;
     }
 
@@ -69,7 +69,7 @@ export class CvGeneratorComponent implements OnInit {
       name: ['', Validators.required],
       surname: ['', Validators.required],
       about: ['', Validators.required],
-      educations: [this.fb.array([]), Validators.required],
+      educations: this.fb.array([]),
       skills: [this.fb.array([]), Validators.required],
       careers: [this.fb.array([]), Validators.required],
       address: ['', Validators.required],
@@ -96,39 +96,39 @@ export class CvGeneratorComponent implements OnInit {
 
   newEducation(): FormGroup {
     return this.fb.group({
-      from: '',
-      to: '',
-      name: '',
-      schoolName: '',
+      from: ['', Validators.required],
+      to: ['', Validators.required],
+      name: ['', Validators.required],
+      schoolName: ['', Validators.required],
     })
   }
 
   newSkills(): FormGroup {
     return this.fb.group({
-      name: ''
+      name: ['', Validators.required],
     })
   }
 
   newCareer(): FormGroup {
     return this.fb.group({
-      from: '',
-      to: '',
-      company: '',
-      jobTitle: '',
-      about: ''
+      from: ['', Validators.required],
+      to: ['', Validators.required],
+      company: ['', Validators.required],
+      jobTitle: ['', Validators.required],
+      about: ['', Validators.required],
     })
   }
 
   newLanguage(): FormGroup {
     return this.fb.group({
-      name: '',
-      level: ''
+      name: ['', Validators.required],
+      level: ['', Validators.required],
     })
   }
 
   newInterest(): FormGroup {
     return this.fb.group({
-      name: ''
+      name: ['', Validators.required],
     })
   }
 
