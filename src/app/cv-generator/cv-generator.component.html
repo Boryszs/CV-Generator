@@ -79,37 +79,37 @@
             </div>
             <div [formGroup]="productForm">
                 <table formArrayName="educations">
-                    <tr *ngFor="let quantity of education().controls; let i=index" [formGroupName]="i">
+                    <tr *ngFor="let education of educations().controls; let i=index" [formGroupName]="i">
                         <td>
                             Od:
                             <input type="number" width="5%" formControlName="from" class="form-control" maxlength="4"
-                                [ngClass]="{ 'is-invalid': submitted && quantity.get('from')}">
-                            <div *ngIf="submitted && quantity.get('from')" class="text-danger">
-                                <div *ngIf="quantity.get('from')"><strong>From is required</strong></div>
+                                [ngClass]="{ 'is-invalid': submitted && education.get('from')?.errors}">
+                            <div *ngIf="submitted && education.get('from')?.errors" class="text-danger">
+                                <div *ngIf="education.get('from')?.errors?.required"><strong>From is required</strong></div>
                             </div>
                         </td>
                         <td>
                             Do:
                             <input type="number" width="5%" formControlName="to" class="form-control" maxlength="4"
-                                [ngClass]="{ 'is-invalid': submitted && quantity.get('to')}">
-                            <div *ngIf="submitted && quantity.get('to')" class="text-danger">
-                                <div *ngIf="quantity.get('to')"><strong>To is required</strong></div>
+                                [ngClass]="{ 'is-invalid': submitted && education.get('to')?.errors}">
+                            <div *ngIf="submitted && education.get('to')?.errors" class="text-danger">
+                                <div *ngIf="education.get('to')?.errors?.required"><strong>To is required</strong></div>
                             </div>
                         </td>
                         <td>
                             Nazwa kierunku:
                             <input type="text" width="15%" formControlName="name" class="form-control" maxlength="64"
-                                [ngClass]="{ 'is-invalid': submitted && quantity.get('name')}">
-                            <div *ngIf="submitted && quantity.get('name')" class="text-danger">
-                                <div *ngIf="quantity.get('name')"><strong>Name is required</strong></div>
+                                [ngClass]="{ 'is-invalid': submitted && education.get('name')?.errors}">
+                            <div *ngIf="submitted && education.get('name')?.errors" class="text-danger">
+                                <div *ngIf="education.get('name')?.errors?.required"><strong>Name is required</strong></div>
                             </div>
                         </td>
                         <td>
                             Szkoła
                             <input type="text" width="15%" formControlName="schoolName" class="form-control"
-                                maxlength="64" [ngClass]="{ 'is-invalid': submitted && quantity.get('schoolName')}">
-                            <div *ngIf="submitted && quantity.get('schoolName')" class="text-danger">
-                                <div *ngIf="quantity.get('schoolName')"><strong>School is required</strong></div>
+                                maxlength="64" [ngClass]="{ 'is-invalid': submitted && education.get('to')?.errors}">
+                            <div *ngIf="submitted && education.get('to')?.errors" class="text-danger">
+                                <div *ngIf="education.get('to')?.errors?.required"><strong>School is required</strong></div>
                             </div>
                         </td>
                         <td>
@@ -127,13 +127,13 @@
 
                 <div [formGroup]="productForm">
                     <table formArrayName="skills">
-                        <tr *ngFor="let quantity of skills().controls; let i=index" [formGroupName]="i">
+                        <tr *ngFor="let skill of skills().controls; let i=index" [formGroupName]="i">
                             <td>
                                 Umiejetnosc:
                                 <input type="text" width="5%" formControlName="name" class="form-control" maxlength="65"
-                                    [ngClass]="{ 'is-invalid': submitted && quantity.get('name')}">
-                                <div *ngIf="submitted && quantity.get('name')" class="text-danger">
-                                    <div *ngIf="quantity.get('name')"><strong>Skill is required</strong></div>
+                                    [ngClass]="{ 'is-invalid': submitted && skill.get('name')?.errors}">
+                                <div *ngIf="submitted && skill.get('name')?.errors" class="text-danger">
+                                    <div *ngIf="skill.get('name')?.errors?.required"><strong>Skill is required</strong></div>
                                 </div>
                             </td>
                             <td>
@@ -150,45 +150,45 @@
 
             <div [formGroup]="productForm">
                 <table formArrayName="careers">
-                    <tr *ngFor="let quantity of carrera().controls; let i=index" [formGroupName]="i">
+                    <tr *ngFor="let carrera of carreras().controls; let i=index" [formGroupName]="i">
                         <td>
                             Od:
                             <input type="number" width="5%" formControlName="from" class="form-control" maxlength="4"
-                                [ngClass]="{ 'is-invalid': submitted && quantity.get('from')}">
-                            <div *ngIf="submitted && quantity.get('from')" class="text-danger">
-                                <div *ngIf="quantity.get('from')"><strong>From is required</strong></div>
+                                [ngClass]="{ 'is-invalid': submitted && carrera.get('from')?.errors}">
+                            <div *ngIf="submitted && carrera.get('from')?.errors" class="text-danger">
+                                <div *ngIf="carrera.get('from')?.errors?.required"><strong>From is required</strong></div>
                             </div>
                         </td>
                         <td>
                             Do:
                             <input type="number" width="5%" formControlName="to" class="form-control" maxlength="4"
-                                [ngClass]="{ 'is-invalid': submitted && quantity.get('to')}">
-                            <div *ngIf="submitted && quantity.get('to')" class="text-danger">
-                                <div *ngIf="quantity.get('to')"><strong>To is required</strong></div>
+                                [ngClass]="{ 'is-invalid': submitted && carrera.get('to')?.errors}">
+                            <div *ngIf="submitted && carrera.get('from')?.errors" class="text-danger">
+                                <div *ngIf="carrera.get('from')?.errors?.required"><strong>To is required</strong></div>
                             </div>
                         </td>
                         <td>
                             Firma:
                             <input type="text" width="10%" formControlName="company" class="form-control" maxlength="64"
-                                [ngClass]="{ 'is-invalid': submitted && quantity.get('company')}">
-                            <div *ngIf="submitted && quantity.get('company')" class="text-danger">
-                                <div *ngIf="quantity.get('company')"><strong>Company is required</strong></div>
+                                [ngClass]="{ 'is-invalid': submitted && carrera.get('company')?.errors}">
+                            <div *ngIf="submitted && carrera.get('company')?.errors" class="text-danger">
+                                <div *ngIf="carrera.get('company')?.errors?.required"><strong>Company is required</strong></div>
                             </div>
                         </td>
                         <td>
                             Stanowisko
                             <input type="text" width="10%" formControlName="jobTitle" class="form-control"
-                                maxlength="64" [ngClass]="{ 'is-invalid': submitted && quantity.get('jobTitle')}">
-                            <div *ngIf="submitted && quantity.get('jobTitle')" class="text-danger">
-                                <div *ngIf="quantity.get('jobTitle')"><strong>Job is required</strong></div>
+                                maxlength="64" [ngClass]="{ 'is-invalid': submitted && carrera.get('jobTitle')?.errors}">
+                            <div *ngIf="submitted && carrera.get('jobTitle')?.errors" class="text-danger">
+                                <div *ngIf="carrera.get('jobTitle')?.errors?.required"><strong>Job is required</strong></div>
                             </div>
                         </td>
                         <td>
                             Opis
                             <input type="text" width="10%" formControlName="about" class="form-control" maxlength="64"
-                                [ngClass]="{ 'is-invalid': submitted && quantity.get('about')}">
-                            <div *ngIf="submitted && quantity.get('about')" class="text-danger">
-                                <div *ngIf="quantity.get('about')"><strong>About is required</strong></div>
+                                [ngClass]="{ 'is-invalid': submitted && carrera.get('about')?.errors}">
+                            <div *ngIf="submitted && carrera.get('about')?.errors" class="text-danger">
+                                <div *ngIf="carrera.get('about')?.errors?.required"><strong>About is required</strong></div>
                             </div>
                         </td>
                         <td>
@@ -204,19 +204,19 @@
 
             <div [formGroup]="productForm">
                 <table formArrayName="languages">
-                    <tr *ngFor="let quantity of language().controls; let i=index" [formGroupName]="i">
+                    <tr *ngFor="let language of languages().controls; let i=index" [formGroupName]="i">
                         <td>
                             Język:
                             <input type="text" width="5%" formControlName="name" class="form-control" maxlength="18"
-                                [ngClass]="{ 'is-invalid': submitted && quantity.get('name')}">
-                            <div *ngIf="submitted && quantity.get('name')" class="text-danger">
-                                <div *ngIf="quantity.get('name')"><strong>Name is required</strong></div>
+                                [ngClass]="{ 'is-invalid': submitted && language.get('name')?.errors}">
+                            <div *ngIf="submitted && language.get('name')?.errors" class="text-danger">
+                                <div *ngIf="language.get('name')?.errors?.required"><strong>Language is required</strong></div>
                             </div>
                         </td>
                         <td>
                             Poziom:
                             <select width="5%" formControlName="level" class="form-select"
-                                [ngClass]="{ 'is-invalid': submitted && quantity.get('level')}">
+                                [ngClass]="{ 'is-invalid': submitted && language.get('level')?.errors}">
                                 <option>A1</option>
                                 <option>A2</option>
                                 <option>B1</option>
@@ -224,8 +224,8 @@
                                 <option>C1</option>
                                 <option>C2</option>
                             </select>
-                            <div *ngIf="submitted && quantity.get('level')" class="text-danger">
-                                <div *ngIf="quantity.get('level')"><strong>Level is required</strong></div>
+                            <div *ngIf="submitted && language.get('level')?.errors" class="text-danger">
+                                <div *ngIf="language.get('level')?.errors?.required"><strong>Level is required</strong></div>
                             </div>
                         </td>
                         <td>
@@ -241,13 +241,13 @@
 
             <div [formGroup]="productForm">
                 <table formArrayName="interests">
-                    <tr *ngFor="let quantity of interest().controls; let i=index" [formGroupName]="i">
+                    <tr *ngFor="let interest of interests().controls; let i=index" [formGroupName]="i">
                         <td>
                             Zainteresowanie:
                             <input type="text" width="5%" formControlName="name" formControlName="name" maxlength="18"
-                                class="form-control" [ngClass]="{ 'is-invalid': submitted && quantity.get('name')}">
-                            <div *ngIf="submitted && quantity.get('name')" class="text-danger">
-                                <div *ngIf="quantity.get('name')"><strong>Name is required</strong></div>
+                                class="form-control" [ngClass]="{ 'is-invalid': submitted && interest.get('name')?.errors}">
+                            <div *ngIf="submitted && interest.get('name')?.errors" class="text-danger">
+                                <div *ngIf="interest.get('name')?.errors?.required"><strong>Interest is required</strong></div>
                             </div>
                         </td>
                         <td>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms'
+import { FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { CvserviceService } from '../services/cvservice.service';
 import { saveAs } from 'file-saver';
 
@@ -37,15 +38,15 @@ export class CvGeneratorComponent implements OnInit {
     this.productForm.value.colorStyle = style;
   }
 
-  education(): FormArray {
-    return this.productForm.get("educations") as FormArray
+   educations(): FormArray {
+    return this.productForm.get("educations") as FormArray;
   }
 
   skills(): FormArray {
     return this.productForm.get("skills") as FormArray
   }
 
-  carrera(): FormArray {
+  carreras(): FormArray {
     return this.productForm.get("careers") as FormArray
   }
 
@@ -55,30 +56,19 @@ export class CvGeneratorComponent implements OnInit {
 
   send() {
     this.submitted = true;
-    this.service.generatePDF(this.productForm.value, this.selectedFile).subscribe((response) => {
-      const blob = new Blob([response], { type: 'application/pdf; charset=utf-8' });
-      saveAs(blob, this.productForm.value.name + "_" + this.productForm.value.surname + "_CV.pdf");
-    })
-
-
     if (this.productForm.invalid) {
       return;
     }
 
-    this.productForm = this.fb.group({
-      name: ['', Validators.required],
-      surname: ['', Validators.required],
-      about: ['', Validators.required],
-      educations: this.fb.array([]),
-      skills: [this.fb.array([]), Validators.required],
-      careers: [this.fb.array([]), Validators.required],
-      address: ['', Validators.required],
-      telephone: ['', [Validators.required, Validators.pattern("[0-9 ]{11}")]],
-      email: ['', Validators.email],
-      languages: [this.fb.array([]), Validators.required],
-      interests: [this.fb.array([]), Validators.required],
-      colorStyle: 'GRAY_WHITE',
-    });
+    
+    this.service.generatePDF(this.productForm.value, this.selectedFile).subscribe((response) => {
+      const blob = new Blob([response], { type: 'application/pdf; charset=utf-8' });
+      saveAs(blob, this.productForm.value.name + "_" + this.productForm.value.surname + "_CV.pdf");
+      window.location.reload();
+    })
+
+
+    
   }
 
   public onFileChanged(event: any) {
@@ -86,11 +76,11 @@ export class CvGeneratorComponent implements OnInit {
   }
 
 
-  language(): FormArray {
+  languages(): FormArray {
     return this.productForm.get("languages") as FormArray
   }
 
-  interest(): FormArray {
+  interests(): FormArray {
     return this.productForm.get("interests") as FormArray
   }
 
@@ -133,8 +123,8 @@ export class CvGeneratorComponent implements OnInit {
   }
 
   addQuantity() {
-    if (this.education().length + 1 <= 2) {
-      this.education().push(this.newEducation());
+    if (this.educations.length + 1 <= 2) {
+      this.educations().push(this.newEducation());
     }
   }
 
@@ -145,25 +135,25 @@ export class CvGeneratorComponent implements OnInit {
   }
 
   addCarrer() {
-    if (this.carrera().length + 1 <= 2) {
-      this.carrera().push(this.newCareer());
+    if (this.carreras().length + 1 <= 2) {
+      this.carreras().push(this.newCareer());
     }
   }
 
   addLanguage() {
-    if (this.language().length + 1 <= 3) {
-      this.language().push(this.newLanguage());
+    if (this.languages().length + 1 <= 3) {
+      this.languages().push(this.newLanguage());
     }
   }
 
   addInterest() {
-    if (this.interest().length + 1 <= 5) {
-      this.interest().push(this.newInterest());
+    if (this.interests().length + 1 <= 5) {
+      this.interests().push(this.newInterest());
     }
   }
 
   removeEducation(i: number) {
-    this.education().removeAt(i);
+    this.educations().removeAt(i);
   }
 
   removeSkills(i: number) {
@@ -171,15 +161,15 @@ export class CvGeneratorComponent implements OnInit {
   }
 
   removeCarrier(i: number) {
-    this.carrera().removeAt(i);
+    this.carreras().removeAt(i);
   }
 
   removeLanguage(i: number) {
-    this.language().removeAt(i);
+    this.languages().removeAt(i);
   }
 
   removeInterest(i: number) {
-    this.interest().removeAt(i);
+    this.interests().removeAt(i);
   }
 
 
