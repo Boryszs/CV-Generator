@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { CvserviceService } from '../services/cvservice.service';
 import { saveAs } from 'file-saver';
 
@@ -30,6 +30,8 @@ export class CvGeneratorComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       languages: this.fb.array([]),
       interests: this.fb.array([]),
+      medias: this.fb.array([]),
+      courses: this.fb.array([]),
       colorStyle: 'GRAY_WHITE',
     });
   }
@@ -38,7 +40,8 @@ export class CvGeneratorComponent implements OnInit {
     this.productForm.value.colorStyle = style;
   }
 
-   educations(): FormArray {
+  
+  educations(): FormArray {
     return this.productForm.get("educations") as FormArray;
   }
 
@@ -48,6 +51,14 @@ export class CvGeneratorComponent implements OnInit {
 
   carreras(): FormArray {
     return this.productForm.get("careers") as FormArray
+  }
+
+  medias(): FormArray {
+    return this.productForm.get("medias") as FormArray
+  }
+
+  courses():FormArray{
+    return this.productForm.get("courses") as FormArray
   }
 
   get valid() {
@@ -67,8 +78,7 @@ export class CvGeneratorComponent implements OnInit {
       window.location.reload();
     })
 
-
-    
+    this.submitted = false;
   }
 
   public onFileChanged(event: any) {
@@ -99,6 +109,12 @@ export class CvGeneratorComponent implements OnInit {
     })
   }
 
+  newCourse():FormGroup{
+    return this.fb.group({
+      name: ['', Validators.required],
+    })
+  }
+
   newCareer(): FormGroup {
     return this.fb.group({
       from: ['', Validators.required],
@@ -106,6 +122,13 @@ export class CvGeneratorComponent implements OnInit {
       company: ['', Validators.required],
       jobTitle: ['', Validators.required],
       about: ['', Validators.required],
+    })
+  }
+
+  newMedia(): FormGroup {
+    return this.fb.group({
+      name: ['', Validators.required],
+      link: ['', Validators.required],
     })
   }
 
@@ -128,6 +151,12 @@ export class CvGeneratorComponent implements OnInit {
     }
   }
 
+  addCourse() {
+    if (this.courses.length + 1 <= 2) {
+      this.courses().push(this.newCourse());
+    }
+  }
+
   addSkills() {
     if (this.skills().length + 1 <= 7) {
       this.skills().push(this.newSkills());
@@ -137,6 +166,12 @@ export class CvGeneratorComponent implements OnInit {
   addCarrer() {
     if (this.carreras().length + 1 <= 2) {
       this.carreras().push(this.newCareer());
+    }
+  }
+
+  addMedia() {
+    if(this.medias().length + 1 <= 2){
+      this.medias().push(this.newMedia());
     }
   }
 
@@ -156,6 +191,14 @@ export class CvGeneratorComponent implements OnInit {
     this.educations().removeAt(i);
   }
 
+  removeMedia(i: number){
+    this.medias().removeAt(i);
+  }
+
+  removeCourse(i: number){
+    this.carreras().removeAt(i);
+  }
+
   removeSkills(i: number) {
     this.skills().removeAt(i);
   }
@@ -171,8 +214,6 @@ export class CvGeneratorComponent implements OnInit {
   removeInterest(i: number) {
     this.interests().removeAt(i);
   }
-
-
 
   ngOnInit(): void {
   }

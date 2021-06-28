@@ -4,12 +4,18 @@
     </div>
     <div class="body" [formGroup]="productForm">
         <div class="box-image">
-            <button width="10%" class="but"><img src="../../assets/1.jpg" (click)="setStyle('BLUE_WHITE')"
-                    ng-click="myFunction()" width="99%"></button>
-            <button width="10%" class="but"><img src="../../assets/2.jpg" (click)="setStyle('DARK_WHITE')"
-                    ng-click="myFunction()" width="99%"></button>
-            <button width="10%" class="but"><img src="../../assets/3.jpg" (click)="setStyle('GRAY_WHITE')"
-                    ng-click="myFunction()" width="99%"></button>
+            <button width="10%" class="but"
+                [ngStyle]="{'border': '4px solid ','border-color':productForm.value.colorStyle == 'BLUE_WHITE' ? 'green' : '', 'outline':'none','padding': '1%','margin': '0 auto'}"><img
+                    src="../../assets/1.jpg" (click)="setStyle('BLUE_WHITE')"
+                    width="99%"></button>
+            <button width="10%" class="but"
+                [ngStyle]="{'border': '4px solid ','border-color':productForm.value.colorStyle == 'DARK_WHITE' ? 'green' : '', 'outline':'none','padding': '1%','margin': '0 auto'}"><img
+                    src="../../assets/2.jpg" (click)="setStyle('DARK_WHITE')"
+                    width="99%"></button>
+            <button width="10%" class="but"
+                [ngStyle]="{'border': '4px solid ','border-color':productForm.value.colorStyle == 'GRAY_WHITE' ? 'green' : '', 'outline':'none','padding': '1%','margin': '0 auto'}">
+                <img src="../../assets/3.jpg" (click)="setStyle('GRAY_WHITE')"
+                    width="99%"></button>
         </div>
 
 
@@ -17,20 +23,20 @@
             <div class="form-group" [formGroup]="productForm">
                 <label for="name">Imie:</label>
                 <input type="text" width="20vw" class="form-control" id="name" name="name" formControlName="name"
-                    required maxlength="20" placeholder="Imie"
+                    maxlength="30" placeholder="Imie"
                     [ngClass]="{ 'is-invalid': submitted && valid.name.errors }">
                 <div *ngIf="submitted && valid.name.errors" class="text-danger">
-                    <div *ngIf="valid.name.errors.required"><strong>Name is required</strong></div>
+                    <div *ngIf="valid.name.errors.required"><strong>Imie jest wymagane</strong></div>
                 </div>
             </div>
 
             <div class="form-group" [formGroup]="productForm">
                 <label for="surname">Nazwisko:</label>
-                <input type="text" width="20vw" class="form-control" id="surname" name="surname" maxlength="20"
+                <input type="text" width="20vw" class="form-control" id="surname" name="surname" maxlength="30"
                     formControlName="surname" placeholder="Nazwisko"
                     [ngClass]="{ 'is-invalid': submitted && valid.surname.errors }">
                 <div *ngIf="submitted && valid.surname.errors" class="text-danger">
-                    <div *ngIf="valid.surname.errors.required"><strong>Surname is required</strong></div>
+                    <div *ngIf="valid.surname.errors.required"><strong>Nazwisko jest wymagane</strong></div>
                 </div>
             </div>
 
@@ -40,7 +46,7 @@
                 <textarea class="form-control" width="15vw" id="about" name="about" rows="8" formControlName="about"
                     maxlength="500" [ngClass]="{ 'is-invalid': submitted && valid.about.errors }"></textarea>
                 <div *ngIf="submitted && valid.about.errors" class="text-danger">
-                    <div *ngIf="valid.about.errors.required"><strong>About is required</strong></div>
+                    <div *ngIf="valid.about.errors.required"><strong>Opis jest wymagany</strong></div>
                 </div>
             </div>
 
@@ -50,27 +56,27 @@
                     maxlength="30" name="address" placeholder="Adres"
                     [ngClass]="{ 'is-invalid': submitted && valid.address.errors }">
                 <div *ngIf="submitted && valid.address.errors" class="text-danger">
-                    <div *ngIf="valid.address.errors.required"><strong>Address is required</strong></div>
+                    <div *ngIf="valid.address.errors.required"><strong>Adres jest wymagany</strong></div>
                 </div>
             </div>
 
             <div class="form-group" [formGroup]="productForm">
                 <label for="surname">Telefon:</label>
                 <input type="text" width="20vw" class="form-control" id="telephone" formControlName="telephone"
-                    maxlength="12" name="telephone" placeholder="Telefon"
+                    maxlength="11" name="telephone" placeholder="Telefon"
                     [ngClass]="{ 'is-invalid': submitted && valid.telephone.errors }">
                 <div *ngIf="submitted && valid.telephone.errors" class="text-danger">
-                    <div *ngIf="valid.telephone.errors.required"><strong>Telephone is required</strong></div>
+                    <div *ngIf="valid.telephone.errors.required"><strong>Telefon jest wymagany</strong></div>
                 </div>
             </div>
 
             <div class="form-group" [formGroup]="productForm">
                 <label for="surname">Email:</label>
                 <input type="email" width="20vw" class="form-control" id="email" name="email" formControlName="email"
-                    maxlength="20" placeholder="Email" [ngClass]="{ 'is-invalid': submitted && valid.email.errors }">
+                    maxlength="40" placeholder="Email" [ngClass]="{ 'is-invalid': submitted && valid.email.errors }">
                 <div *ngIf="submitted && valid.email.errors" class="text-danger">
-                    <div *ngIf="valid.email.errors.required"><strong>Telephone is required</strong></div>
-                    <div *ngIf="valid.email.errors.email">Email must be a valid email address</div>
+                    <div *ngIf="valid.email.errors.required"><strong>Email jest wymagany</strong></div>
+                    <div *ngIf="valid.email.errors.email">E-mail musi być prawidłowym adresem e-mail</div>
                 </div>
             </div>
 
@@ -85,7 +91,8 @@
                             <input type="number" width="5%" formControlName="from" class="form-control" maxlength="4"
                                 [ngClass]="{ 'is-invalid': submitted && education.get('from')?.errors}">
                             <div *ngIf="submitted && education.get('from')?.errors" class="text-danger">
-                                <div *ngIf="education.get('from')?.errors?.required"><strong>From is required</strong></div>
+                                <div *ngIf="education.get('from')?.errors?.required"><strong>Pole jest wymagane</strong>
+                                </div>
                             </div>
                         </td>
                         <td>
@@ -93,7 +100,7 @@
                             <input type="number" width="5%" formControlName="to" class="form-control" maxlength="4"
                                 [ngClass]="{ 'is-invalid': submitted && education.get('to')?.errors}">
                             <div *ngIf="submitted && education.get('to')?.errors" class="text-danger">
-                                <div *ngIf="education.get('to')?.errors?.required"><strong>To is required</strong></div>
+                                <div *ngIf="education.get('to')?.errors?.required"><strong>Pole jest wymagane</strong></div>
                             </div>
                         </td>
                         <td>
@@ -101,7 +108,8 @@
                             <input type="text" width="15%" formControlName="name" class="form-control" maxlength="64"
                                 [ngClass]="{ 'is-invalid': submitted && education.get('name')?.errors}">
                             <div *ngIf="submitted && education.get('name')?.errors" class="text-danger">
-                                <div *ngIf="education.get('name')?.errors?.required"><strong>Name is required</strong></div>
+                                <div *ngIf="education.get('name')?.errors?.required"><strong>Pole jest wymagane</strong>
+                                </div>
                             </div>
                         </td>
                         <td>
@@ -109,7 +117,8 @@
                             <input type="text" width="15%" formControlName="schoolName" class="form-control"
                                 maxlength="64" [ngClass]="{ 'is-invalid': submitted && education.get('to')?.errors}">
                             <div *ngIf="submitted && education.get('to')?.errors" class="text-danger">
-                                <div *ngIf="education.get('to')?.errors?.required"><strong>School is required</strong></div>
+                                <div *ngIf="education.get('to')?.errors?.required"><strong>Pole jest wymagane</strong>
+                                </div>
                             </div>
                         </td>
                         <td>
@@ -130,10 +139,11 @@
                         <tr *ngFor="let skill of skills().controls; let i=index" [formGroupName]="i">
                             <td>
                                 Umiejetnosc:
-                                <input type="text" width="5%" formControlName="name" class="form-control" maxlength="65"
+                                <input type="text" width="5%" formControlName="name" class="form-control" maxlength="80"
                                     [ngClass]="{ 'is-invalid': submitted && skill.get('name')?.errors}">
                                 <div *ngIf="submitted && skill.get('name')?.errors" class="text-danger">
-                                    <div *ngIf="skill.get('name')?.errors?.required"><strong>Skill is required</strong></div>
+                                    <div *ngIf="skill.get('name')?.errors?.required"><strong>Pole jest wymagane</strong>
+                                    </div>
                                 </div>
                             </td>
                             <td>
@@ -156,7 +166,8 @@
                             <input type="number" width="5%" formControlName="from" class="form-control" maxlength="4"
                                 [ngClass]="{ 'is-invalid': submitted && carrera.get('from')?.errors}">
                             <div *ngIf="submitted && carrera.get('from')?.errors" class="text-danger">
-                                <div *ngIf="carrera.get('from')?.errors?.required"><strong>From is required</strong></div>
+                                <div *ngIf="carrera.get('from')?.errors?.required"><strong>Pole jest wymagane</strong>
+                                </div>
                             </div>
                         </td>
                         <td>
@@ -164,7 +175,7 @@
                             <input type="number" width="5%" formControlName="to" class="form-control" maxlength="4"
                                 [ngClass]="{ 'is-invalid': submitted && carrera.get('to')?.errors}">
                             <div *ngIf="submitted && carrera.get('from')?.errors" class="text-danger">
-                                <div *ngIf="carrera.get('from')?.errors?.required"><strong>To is required</strong></div>
+                                <div *ngIf="carrera.get('from')?.errors?.required"><strong>Pole jest wymagane</strong></div>
                             </div>
                         </td>
                         <td>
@@ -172,15 +183,17 @@
                             <input type="text" width="10%" formControlName="company" class="form-control" maxlength="64"
                                 [ngClass]="{ 'is-invalid': submitted && carrera.get('company')?.errors}">
                             <div *ngIf="submitted && carrera.get('company')?.errors" class="text-danger">
-                                <div *ngIf="carrera.get('company')?.errors?.required"><strong>Company is required</strong></div>
+                                <div *ngIf="carrera.get('company')?.errors?.required"><strong>Pole jest wymagane</strong></div>
                             </div>
                         </td>
                         <td>
                             Stanowisko
                             <input type="text" width="10%" formControlName="jobTitle" class="form-control"
-                                maxlength="64" [ngClass]="{ 'is-invalid': submitted && carrera.get('jobTitle')?.errors}">
+                                maxlength="64"
+                                [ngClass]="{ 'is-invalid': submitted && carrera.get('jobTitle')?.errors}">
                             <div *ngIf="submitted && carrera.get('jobTitle')?.errors" class="text-danger">
-                                <div *ngIf="carrera.get('jobTitle')?.errors?.required"><strong>Job is required</strong></div>
+                                <div *ngIf="carrera.get('jobTitle')?.errors?.required"><strong>Pole jest wymagane</strong>
+                                </div>
                             </div>
                         </td>
                         <td>
@@ -188,7 +201,8 @@
                             <input type="text" width="10%" formControlName="about" class="form-control" maxlength="64"
                                 [ngClass]="{ 'is-invalid': submitted && carrera.get('about')?.errors}">
                             <div *ngIf="submitted && carrera.get('about')?.errors" class="text-danger">
-                                <div *ngIf="carrera.get('about')?.errors?.required"><strong>About is required</strong></div>
+                                <div *ngIf="carrera.get('about')?.errors?.required"><strong>Pole jest wymagane</strong>
+                                </div>
                             </div>
                         </td>
                         <td>
@@ -210,7 +224,7 @@
                             <input type="text" width="5%" formControlName="name" class="form-control" maxlength="18"
                                 [ngClass]="{ 'is-invalid': submitted && language.get('name')?.errors}">
                             <div *ngIf="submitted && language.get('name')?.errors" class="text-danger">
-                                <div *ngIf="language.get('name')?.errors?.required"><strong>Language is required</strong></div>
+                                <div *ngIf="language.get('name')?.errors?.required"><strong>Pole jest wymagane</strong></div>
                             </div>
                         </td>
                         <td>
@@ -223,9 +237,11 @@
                                 <option>B2</option>
                                 <option>C1</option>
                                 <option>C2</option>
+                                <option>Native</option>
                             </select>
                             <div *ngIf="submitted && language.get('level')?.errors" class="text-danger">
-                                <div *ngIf="language.get('level')?.errors?.required"><strong>Level is required</strong></div>
+                                <div *ngIf="language.get('level')?.errors?.required"><strong>Pole jest wymagane</strong>
+                                </div>
                             </div>
                         </td>
                         <td>
@@ -244,14 +260,71 @@
                     <tr *ngFor="let interest of interests().controls; let i=index" [formGroupName]="i">
                         <td>
                             Zainteresowanie:
-                            <input type="text" width="5%" formControlName="name" formControlName="name" maxlength="18"
-                                class="form-control" [ngClass]="{ 'is-invalid': submitted && interest.get('name')?.errors}">
+                            <input type="text" width="5%" formControlName="name" formControlName="name" maxlength="30"
+                                class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && interest.get('name')?.errors}">
                             <div *ngIf="submitted && interest.get('name')?.errors" class="text-danger">
-                                <div *ngIf="interest.get('name')?.errors?.required"><strong>Interest is required</strong></div>
+                                <div *ngIf="interest.get('name')?.errors?.required"><strong>Pole jest wymagane</strong></div>
                             </div>
                         </td>
                         <td>
                             <button type="button" (click)="removeInterest(i)" class="btn btn-danger">Usuń</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+
+            <div class="form-group">
+                <button type="button" (click)="addMedia()" class="btn btn-primary">Dodaj link</button>
+            </div>
+
+            <div [formGroup]="productForm">
+                <table formArrayName="medias">
+                    <tr *ngFor="let media of medias().controls; let i=index" [formGroupName]="i">
+                        <td>
+                            Nazwa(Github, Linkdelin):
+                            <input type="text" width="5%" formControlName="name" formControlName="name" maxlength="18"
+                                class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && media.get('name')?.errors}">
+                            <div *ngIf="submitted && media.get('name')?.errors" class="text-danger">
+                                <div *ngIf="media.get('name')?.errors?.required"><strong>Pole jest wymagane</strong></div>
+                            </div>
+                        </td>
+                        <td>
+                            Link:
+                            <input type="text" width="5%" formControlName="link" formControlName="link" maxlength="40"
+                                class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && media.get('link')?.errors}">
+                            <div *ngIf="submitted && media.get('link')?.errors" class="text-danger">
+                                <div *ngIf="media.get('link')?.errors?.required"><strong>Pole jest wymagane</strong></div>
+                            </div>
+                        </td>
+                        <td>
+                            <button type="button" (click)="removeMedia(i)" class="btn btn-danger">Usuń</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="form-group">
+                <button type="button" (click)="addCourse()" class="btn btn-primary">Dodaj kurs</button>
+            </div>
+
+            <div [formGroup]="productForm">
+                <table formArrayName="courses">
+                    <tr *ngFor="let course of courses().controls; let i=index" [formGroupName]="i">
+                        <td>
+                            Nazwa:
+                            <input type="text" width="5%" formControlName="name" formControlName="name" maxlength="18"
+                                class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && course.get('name')?.errors}">
+                            <div *ngIf="submitted && course.get('name')?.errors" class="text-danger">
+                                <div *ngIf="course.get('name')?.errors?.required"><strong>Pole jest wymagane</strong></div>
+                            </div>
+                        </td>
+                        <td>
+                            <button type="button" (click)="removeCourse(i)" class="btn btn-danger">Usuń</button>
                         </td>
                     </tr>
                 </table>

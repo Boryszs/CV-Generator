@@ -34,13 +34,13 @@
     margin: 0 auto;
 }
 
-.but:focus{ 
+/* .but:focus{ 
     outline:0;
     padding: 1%;
     display: block;
     margin: 0 auto;
     border: 4px solid green;
-}
+} */
 
 .box-image{
     margin-top: 3%;
@@ -93,9 +93,14 @@ label{
     font-weight: bolder;
 }
 
+.btn-danger{
+    justify-content: end !important;
+    margin-top: 40% !important;
+    align-items: flex-end !important;
+}
 button{
     justify-content: center;
-    margin: 4%;
+    margin: 3%;
     align-items: center;
 }
 
