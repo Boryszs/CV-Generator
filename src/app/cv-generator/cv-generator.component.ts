@@ -3,6 +3,7 @@ import { FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
 import { Observable, from } from 'rxjs';
 import { CvserviceService } from '../services/cvservice.service';
 import { saveAs } from 'file-saver';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-cv-generator',
@@ -15,9 +16,10 @@ export class CvGeneratorComponent implements OnInit {
   productForm: FormGroup;
   selectedFile: File | null = null;
   submitted = false;
+  style: any[];
 
 
-  constructor(private fb: FormBuilder, private service: CvserviceService) {
+  constructor(private fb: FormBuilder, private service: CvserviceService,private router: Router) {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
       surname: ['', Validators.required],
@@ -216,6 +218,10 @@ export class CvGeneratorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit() {
+    this.service.getStyle().subscribe((data) => {this.style = data},(error)=>{ if(error.status != 200){this.router.navigateByUrl('/404');}});
   }
 
 }

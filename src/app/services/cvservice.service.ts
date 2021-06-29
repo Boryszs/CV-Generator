@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class CvserviceService {
 
-  private url = "http://127.0.0.1:8080/cv";
+  private url = "http://127.0.0.1:8080/";
 
   constructor(private http: HttpClient) { }
 
@@ -22,6 +22,11 @@ export class CvserviceService {
     const headers: HttpHeaders = new HttpHeaders();
     headers.append('Content-Type', 'undefined');
     headers.append('Accept', 'application/json');
-    return this.http.post(this.url, uploadImageData, { headers: headers, responseType: 'blob' as 'json' });
+    return this.http.post(this.url+"cv", uploadImageData, { headers: headers, responseType: 'blob' as 'json' });
   }
+
+  getStyle(){
+    return this.http.get<any[]>(this.url+"style");
+  }
+
 }
