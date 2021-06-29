@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class CvserviceService {
 
-  private url = "http://127.0.0.1:8080/";
+  private url = "https://generatorcv.herokuapp.com/";
 
   constructor(private http: HttpClient) { }
 
