@@ -10,16 +10,14 @@
                     [src]="link.url" (click)="setStyle(link.name)"
                     width="99%"></button>
             </ul>
-
         </div>
-
 
         <form>
             <div class="form-group" [formGroup]="productForm">
                 <label for="name">Imie:</label>
                 <input type="text" width="20vw" class="form-control" id="name" name="name" formControlName="name"
                     maxlength="30" placeholder="Imie"
-                    [ngClass]="{ 'is-invalid': submitted && valid.name.errors }">
+                    [ngClass]="{ 'is-invalid': submitted && valid.name.errors }" (ngModelChange)="nameEvent()">
                 <div *ngIf="submitted && valid.name.errors" class="text-danger">
                     <div *ngIf="valid.name.errors.required"><strong>Imie jest wymagane</strong></div>
                 </div>
@@ -29,7 +27,7 @@
                 <label for="surname">Nazwisko:</label>
                 <input type="text" width="20vw" class="form-control" id="surname" name="surname" maxlength="30"
                     formControlName="surname" placeholder="Nazwisko"
-                    [ngClass]="{ 'is-invalid': submitted && valid.surname.errors }">
+                    [ngClass]="{ 'is-invalid': submitted && valid.surname.errors }" (ngModelChange)="surnameEvent()">
                 <div *ngIf="submitted && valid.surname.errors" class="text-danger">
                     <div *ngIf="valid.surname.errors.required"><strong>Nazwisko jest wymagane</strong></div>
                 </div>
@@ -57,11 +55,12 @@
 
             <div class="form-group" [formGroup]="productForm">
                 <label for="surname">Telefon:</label>
-                <input type="text" width="20vw" class="form-control" id="telephone" formControlName="telephone"
-                    maxlength="11" name="telephone" placeholder="Telefon"
+                <input type="text" width="20vw" class="form-control" id="telephone" formControlName="telephone" 
+                 name="telephone" placeholder="Telefon" maxlength="9"
                     [ngClass]="{ 'is-invalid': submitted && valid.telephone.errors }">
                 <div *ngIf="submitted && valid.telephone.errors" class="text-danger">
                     <div *ngIf="valid.telephone.errors.required"><strong>Telefon jest wymagany</strong></div>
+                    <div *ngIf="valid.telephone.errors.pattern"><strong>Podaj poprawny telefon !!!</strong></div>
                 </div>
             </div>
 
@@ -333,6 +332,9 @@
         </form>
 
     </div>
-
-    <button type="button" class="btn btn-success" (click)="send()">Generuj</button>
+    <div class="box-image">
+        <button type="button" class="btn btn-success" (click)="send()">Generuj</button>
+        <button type="button" class="btn btn-secondary" (click)="setEmpty()">Wyczyść</button>
+    </div>
+    
 </div>

@@ -3,7 +3,7 @@ import { FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
 import { Observable, from } from 'rxjs';
 import { CvserviceService } from '../services/cvservice.service';
 import { saveAs } from 'file-saver';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-cv-generator',
@@ -17,9 +17,10 @@ export class CvGeneratorComponent implements OnInit {
   selectedFile: File | null = null;
   submitted = false;
   style: any[];
+  data: any;
+  flag = false;
 
-
-  constructor(private fb: FormBuilder, private service: CvserviceService,private router: Router) {
+  constructor(private fb: FormBuilder, private service: CvserviceService, private router: Router) {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
       surname: ['', Validators.required],
@@ -28,7 +29,7 @@ export class CvGeneratorComponent implements OnInit {
       skills: this.fb.array([]),
       careers: this.fb.array([]),
       address: ['', Validators.required],
-      telephone: ['', [Validators.required, Validators.pattern("[0-9 ]{11}")]],
+      telephone: ['', [Validators.required, Validators.pattern("[0-9]{9}")]],
       email: ['', [Validators.required, Validators.email]],
       languages: this.fb.array([]),
       interests: this.fb.array([]),
@@ -42,7 +43,7 @@ export class CvGeneratorComponent implements OnInit {
     this.productForm.value.colorStyle = style;
   }
 
-  
+
   educations(): FormArray {
     return this.productForm.get("educations") as FormArray;
   }
@@ -59,7 +60,7 @@ export class CvGeneratorComponent implements OnInit {
     return this.productForm.get("medias") as FormArray
   }
 
-  courses():FormArray{
+  courses(): FormArray {
     return this.productForm.get("courses") as FormArray
   }
 
@@ -73,14 +74,16 @@ export class CvGeneratorComponent implements OnInit {
       return;
     }
 
-    
+    localStorage.setItem(this.productForm.value.name + "" + this.productForm.value.surname, JSON.stringify(this.productForm.value));
+
     this.service.generatePDF(this.productForm.value, this.selectedFile).subscribe((response) => {
       const blob = new Blob([response], { type: 'application/pdf; charset=utf-8' });
       saveAs(blob, this.productForm.value.name + "_" + this.productForm.value.surname + "_CV.pdf");
-      window.location.reload();
+      //window.location.reload();
     })
 
     this.submitted = false;
+    this.flag = false;
   }
 
   public onFileChanged(event: any) {
@@ -111,7 +114,7 @@ export class CvGeneratorComponent implements OnInit {
     })
   }
 
-  newCourse():FormGroup{
+  newCourse(): FormGroup {
     return this.fb.group({
       name: ['', Validators.required],
     })
@@ -172,7 +175,7 @@ export class CvGeneratorComponent implements OnInit {
   }
 
   addMedia() {
-    if(this.medias().length + 1 <= 2){
+    if (this.medias().length + 1 <= 2) {
       this.medias().push(this.newMedia());
     }
   }
@@ -193,11 +196,11 @@ export class CvGeneratorComponent implements OnInit {
     this.educations().removeAt(i);
   }
 
-  removeMedia(i: number){
+  removeMedia(i: number) {
     this.medias().removeAt(i);
   }
 
-  removeCourse(i: number){
+  removeCourse(i: number) {
     this.carreras().removeAt(i);
   }
 
@@ -218,10 +221,112 @@ export class CvGeneratorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.productForm?.get("name")?.valueChanges.subscribe(selectedValue => {
+      this.getData();
+    })
+
+    this.productForm?.get("surname")?.valueChanges.subscribe(selectedValue => {
+      this.getData();
+    })
+  }
+
+  nameEvent():void{
+    this.getData();
+  }
+
+  surnameEvent():void{
+    this.getData();
+  }
+
+  getData(): void {
+    if (localStorage.getItem(this.productForm.value.name + "" + this.productForm.value.surname) != null && !this.flag) {
+      this.flag = true;
+      this.data = JSON.parse(localStorage.getItem(this.productForm.value.name + "" + this.productForm.value.surname) || "")
+      this.productForm.controls['name'].setValue(this.data.name);
+      this.productForm.controls['surname'].setValue(this.data.surname);
+      this.productForm.controls['about'].setValue(this.data.about);
+
+      this.data.educations.map((x: any) => {
+        this.educations().push(
+          this.fb.group({
+            from: [x.from, Validators.required],
+            to: [x.to, Validators.required],
+            name: [x.name, Validators.required],
+            schoolName: [x.schoolName, Validators.required],
+          }))
+      });
+
+      this.data.skills.map((x: any) => { this.skills().push(this.fb.group({ name: [x.name, Validators.required],}))});
+
+      this.data.careers.map((x: any) => {
+        this.carreras().push(
+          this.fb.group({
+            from: [x.from, Validators.required],
+            to: [x.to, Validators.required],
+            company: [x.company, Validators.required],
+            jobTitle: [x.jobTitle, Validators.required],
+            about: [x.about, Validators.required],
+          }))
+      });
+
+      this.productForm.controls['address'].setValue(this.data.address);
+      this.productForm.controls['telephone'].setValue(this.data.telephone);
+      this.productForm.controls['email'].setValue(this.data.email);
+
+      this.data.languages.map((x: any) => {
+        this.languages().push(
+          this.fb.group({
+            name: [x.name, Validators.required],
+            level: [x.level, Validators.required],
+          }))
+      });
+
+      this.data.interests.map((x: any) => {
+        this.interests().push(
+          this.fb.group({
+            name: [x.name, Validators.required],
+          }))
+      });
+
+      this.data.medias.map((x: any) => {
+        this.medias().push(
+          this.fb.group({
+            name: [x.name, Validators.required],
+            link: [x.link, Validators.required],
+          }))
+      });
+
+      this.data.courses.map((x: any) => {
+        this.courses().push(
+          this.fb.group({
+            name: [x.name, Validators.required],
+          }))
+      });
+    }
+  }
+
+
+  setEmpty() {
+    this.productForm = this.fb.group({
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
+      about: ['', Validators.required],
+      educations: this.fb.array([]),
+      skills: this.fb.array([]),
+      careers: this.fb.array([]),
+      address: ['', Validators.required],
+      telephone: ['', [Validators.required, Validators.pattern("[0-9 ]{11}")]],
+      email: ['', [Validators.required, Validators.email]],
+      languages: this.fb.array([]),
+      interests: this.fb.array([]),
+      medias: this.fb.array([]),
+      courses: this.fb.array([]),
+      colorStyle: 'GRAY_WHITE',
+    });
   }
 
   ngAfterViewInit() {
-    this.service.getStyle().subscribe((data) => {this.style = data},(error)=>{ if(error.status != 200){this.router.navigateByUrl('/404');}});
+    this.service.getStyle().subscribe((data) => { this.style = data }, (error) => { if (error.status != 200) { this.router.navigateByUrl('/404'); } });
   }
 
 }
