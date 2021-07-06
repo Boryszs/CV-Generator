@@ -55,7 +55,7 @@
 
             <div class="form-group" [formGroup]="productForm">
                 <label for="surname">Telefon:</label>
-                <input type="text" width="20vw" class="form-control" id="telephone" formControlName="telephone" 
+                <input type="text" width="20vw" class="form-control" id="telephone" formControlName="telephone"
                  name="telephone" placeholder="Telefon" maxlength="9"
                     [ngClass]="{ 'is-invalid': submitted && valid.telephone.errors }">
                 <div *ngIf="submitted && valid.telephone.errors" class="text-danger">
@@ -99,7 +99,7 @@
                         </td>
                         <td>
                             Nazwa kierunku:
-                            <input type="text" width="15%" formControlName="name" class="form-control" maxlength="64"
+                            <input type="text" width="15%" formControlName="name" class="form-control" maxlength="90"
                                 [ngClass]="{ 'is-invalid': submitted && education.get('name')?.errors}">
                             <div *ngIf="submitted && education.get('name')?.errors" class="text-danger">
                                 <div *ngIf="education.get('name')?.errors?.required"><strong>Pole jest wymagane</strong>
@@ -109,7 +109,7 @@
                         <td>
                             Szkoła
                             <input type="text" width="15%" formControlName="schoolName" class="form-control"
-                                maxlength="64" [ngClass]="{ 'is-invalid': submitted && education.get('to')?.errors}">
+                                maxlength="100" [ngClass]="{ 'is-invalid': submitted && education.get('to')?.errors}">
                             <div *ngIf="submitted && education.get('to')?.errors" class="text-danger">
                                 <div *ngIf="education.get('to')?.errors?.required"><strong>Pole jest wymagane</strong>
                                 </div>
@@ -310,7 +310,7 @@
                     <tr *ngFor="let course of courses().controls; let i=index" [formGroupName]="i">
                         <td>
                             Nazwa:
-                            <input type="text" width="5%" formControlName="name" formControlName="name" maxlength="18"
+                            <input type="text" width="5%" formControlName="name" formControlName="name" maxlength="40"
                                 class="form-control"
                                 [ngClass]="{ 'is-invalid': submitted && course.get('name')?.errors}">
                             <div *ngIf="submitted && course.get('name')?.errors" class="text-danger">
@@ -336,5 +336,5 @@
         <button type="button" class="btn btn-success" (click)="send()">Generuj</button>
         <button type="button" class="btn btn-secondary" (click)="setEmpty()">Wyczyść</button>
     </div>
-    
+
 </div>
