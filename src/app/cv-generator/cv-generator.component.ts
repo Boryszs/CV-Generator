@@ -201,7 +201,7 @@ export class CvGeneratorComponent implements OnInit {
   }
 
   removeCourse(i: number) {
-    this.carreras().removeAt(i);
+    this.courses().removeAt(i);
   }
 
   removeSkills(i: number) {
